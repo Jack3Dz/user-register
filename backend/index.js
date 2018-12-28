@@ -9,7 +9,7 @@ const options = {
     reconnectTries: 60, 
     reconnectInterval: 1000
 }
-const routes = require('./routes/routes.js')
+const routes = require('./routes/userRoutes.js')
 const port = process.env.PORT || 80
 const app = express()
 const http = require('http').Server(app)

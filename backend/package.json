@@ -1,0 +1,25 @@
+{
+  "name": "user-register-backend",
+  "version": "1.0.0",
+  "description": "A api to register users backend using cpf and cnpj validation",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "keywords": [
+    "express",
+    "mongo"
+  ],
+  "author": "Jefferson Bruchado",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongodb": "^3.1.10"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "supertest": "^3.3.0",
+    "tape": "^4.9.1"
+  }
+}

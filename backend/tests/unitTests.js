@@ -2,7 +2,7 @@ const test = require('tape')
 const request = require('supertest')
 const express = require('express')
 
-const User = require('../models/User')
+const User = require('../models/user')
 const app = require('../index')
 let userId
 
@@ -12,11 +12,12 @@ before(done => {
     })
 })
 
-describe('API Integration Test', () => {
-    it('Runs all tests', done => {
-        test('/api/users/new', assert => {
+describe('API Integration Test', function() {
+    it('Runs all tests', function(done) {
+
+        test('/api/v1/users/', assert => {
             request(app)
-                .post('/api/users/new')
+                .post('/api/v1/users/')
                 .send(new User('test name', '27810384074'))
                 .expect(200)
                 .end((err, res) => {
@@ -26,21 +27,21 @@ describe('API Integration Test', () => {
                 })
         })
 
-        test('/api/users/all', assert => {
+        test('/api/v1/users/', assert => {
             request(app)
-                .get('/api/users/all')
+                .get('/api/v1/users/')
                 .expect(200)
                 .end((err, res) => {
                     if (err) return assert.fail(JSON.stringify(res))
-                    documentId = res.body[0]._id
+                    userId = res.body[0]._id
                     assert.pass('Got all users successfully, test passed!')
                     assert.end()
                 })
         })
 
-        test('/api/users/:id', assert => {
+        test('/api/v1/users/:id', assert => {
             request(app)
-                .get(`/api/users/${documentId}`)
+                .get(`/api/v1/users/${userId}`)
                 .expect(200)
                 .end((err, res) => {
                     if (err) return assert.fail(JSON.stringify(res))
@@ -49,10 +50,10 @@ describe('API Integration Test', () => {
                 })
         })
 
-        test('/api/users/edit/:id', assert => {
+        test('/api/v1/users/:id', assert => {
             request(app)
-                .patch(`/api/users/edit/${documentId}`)
-                .send(new Document('test name edit', 'test cpfcnpj edit'))
+                .patch(`/api/v1/users/${userId}`)
+                .send(new User('test name edit', 'test cpfcnpj edit'))
                 .expect(200)
                 .end((err, res) => {
                     if (err) return assert.fail(JSON.stringify(res))
@@ -61,9 +62,9 @@ describe('API Integration Test', () => {
                 })
         })
 
-        test('/api/users/delete/:id', assert => {
+        test('/api/v1/users/:id', assert => {
             request(app)
-                .delete(`/api/users/delete/${documentId}`)
+                .delete(`/api/v1/users/${userId}`)
                 .expect(200)
                 .end((err, res) => {
                     if (err) return assert.fail(JSON.stringify(res))

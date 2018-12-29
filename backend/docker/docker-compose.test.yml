@@ -11,7 +11,7 @@ services:
     environment:
       WAIT_HOSTS: database-test:27017
   database-test:
-    image: mongo:4.0
+    image: mongo:latest
     env_file:
       - ../.env
     volumes:

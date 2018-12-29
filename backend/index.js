@@ -1,36 +1,41 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const MongoClient = require('mongodb')
+// Import express
+let express = require('express');
+// Import Body parser
+let bodyParser = require('body-parser');
+// Import Mongoose
+let mongoose = require('mongoose');
+// Initialize the app
+let app = express();
+
+// Import routes
+let statusRoutes = require("./routes/statusRoutes")
+let userRoutes = require("./routes/userRoutes")
+
+
+// Configure bodyparser to handle post requests
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
 
 const dbName = process.env.NODE_ENV === 'dev' ? 'database-test' : 'database'
-const url = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${dbName}:27017?authMechanism=SCRAM-SHA-1&authSource=admin`
-const options = {
-    useNewUrlParser: true, 
-    reconnectTries: 60, 
-    reconnectInterval: 1000
-}
-const routes = require('./routes/userRoutes.js')
-const port = process.env.PORT || 80
-const app = express()
-const http = require('http').Server(app)
+// Connect to Mongoose and set connection variable
+const url = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${dbName}:27017/?authMechanism=SCRAM-SHA-1&authSource=admin`
+mongoose.connect(url);
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({ extended: true}))
-app.use('/api/v1', routes)
-app.use((req, res) => {
-    res.status(404)
-})
+var db = mongoose.connection;
+// Setup server port
+var port = process.env.PORT || 8080;
 
-MongoClient.connect(url, options, (err, database) => {
-    if(err) {
-        console.log(`FATAL MONGODB CONNECTION ERROR: $(err):$(err.stack)`)
-        process.exit(1)
-    }
-    app.locals.db = database.db('api')
-    http.listen(port, () => {
-        console.log("Listening on port " + port)
-        app.emit('APP_STARTED')
-    })
-})
 
-module.exports = app
+// Send message for default URL
+app.get('/', (req, res) => res.send('User-Register is Working!!'));
+
+// Use Api routes in the App
+app.use('/api/v1', statusRoutes)
+app.use('/api/v1', userRoutes)
+
+// Launch app to listen to specified port
+app.listen(port, function () {
+    console.log("Running User-Register on port " + port);
+});

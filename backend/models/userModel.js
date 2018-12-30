@@ -3,11 +3,13 @@ var mongoose = require('mongoose')
 var userSchema = mongoose.Schema({
     name: {
         type: String,
-        required: false
+        required: true,
+        unique: true
     },
     cpfcnpj: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     active: {
         type: Boolean,

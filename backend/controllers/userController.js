@@ -1,7 +1,8 @@
 User = require('../models/userModel')
+helper = require('../utils/helpers')
 
 // Handle index actions
-exports.index = function(req, res) {
+module.exports.index = function(req, res) {
     User.get(function (err, users) {
         if (err) {
             res.json({
@@ -18,12 +19,25 @@ exports.index = function(req, res) {
 }
 
 // Handle create user
-exports.new = function (req, res) {
+module.exports.new = function (req, res) {
     var user = new User();
     user.name = req.body.name ? req.body.name : user.name;
-    user.cpfcnpj = req.body.cpfcnpj;
+    if (helper.validate_cpf_cnpj(req.body.cpfcnpj)) {
+        user.cpfcnpj = req.body.cpfcnpj;
+    } else {
+        res.json({
+            message: 'CPF or CNPJ is invalid!',
+            data: user
+        })
+    }
 
     user.save(function (err) {
+        if (err) {
+            res.json({
+                status: "error",
+                message: 'User information already used or invalid.',
+            });
+        }
         res.json({
             message: 'New user created!',
             data: user
@@ -32,7 +46,7 @@ exports.new = function (req, res) {
 }
 
 // Handle view user info
-exports.view = function (req, res) {
+module.exports.view = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)
             res.send(err);
@@ -44,7 +58,7 @@ exports.view = function (req, res) {
 };
 
 // Handle update user info
-exports.update = function (req, res) {
+module.exports.update = function (req, res) {
 
     User.findById(req.params.user_id, function (err, user) {
         if (err)
@@ -67,7 +81,7 @@ exports.update = function (req, res) {
 };
 
 // Handle delete user
-exports.delete = function (req, res) {
+module.exports.delete = function (req, res) {
     User.deleteOne({
         _id: req.params.user_id
     }, function (err, user) {

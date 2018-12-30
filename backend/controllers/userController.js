@@ -22,13 +22,15 @@ module.exports.index = function(req, res) {
 module.exports.new = function (req, res) {
     var user = new User();
     user.name = req.body.name ? req.body.name : user.name;
-    if (helper.validate_cpf_cnpj(req.body.cpfcnpj)) {
-        user.cpfcnpj = req.body.cpfcnpj;
-    } else {
-        res.json({
-            message: 'CPF or CNPJ is invalid!',
-            data: user
-        })
+    if (req.body.cpfcnpj != undefined) {
+        if (helper.validate_cpf_cnpj(req.body.cpfcnpj)) {
+            user.cpfcnpj = req.body.cpfcnpj;
+        } else {
+            res.json({
+                message: 'CPF or CNPJ is invalid!',
+                data: user
+            })
+        }
     }
 
     user.save(function (err) {

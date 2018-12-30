@@ -1,14 +1,14 @@
-let express = require('express');
-let bodyParser = require('body-parser');
-let mongoose = require('mongoose');
-let expressValidator = require('express-validator');
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const expressValidator = require('express-validator');
 
-let app = express();
+const app = express();
+const http = require('http').Server(app);
 
 // Import routes
-let statusRoutes = require("./routes/statusRoutes");
-let userRoutes = require("./routes/userRoutes");
-
+const statusRoutes = require("./routes/statusRoutes");
+const userRoutes = require("./routes/userRoutes");
 
 // Configure bodyparser to handle post requests
 app.use(bodyParser.urlencoded({
@@ -38,4 +38,7 @@ app.use('/api/v1', userRoutes);
 // Launch app to listen to specified port
 app.listen(port, function () {
     console.log("Running User-Register on port " + port);
+    app.emit('APP_STARTED');
 });
+
+module.exports = app 

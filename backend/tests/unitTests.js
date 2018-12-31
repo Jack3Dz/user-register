@@ -26,7 +26,7 @@ describe('API tests', () => {
         });
     });
     describe('/POST user', () => {
-        it('it should POST a user ', (done) => {
+        it('it should POST a valid user ', (done) => {
             let user = {
                 name: "Dummyname",
                 cpfcnpj: "80220128073"
@@ -40,20 +40,6 @@ describe('API tests', () => {
                     res.body.should.have.property('message').eql('New user created!');
                     res.body.data.should.have.property('name');
                     res.body.data.should.have.property('cpfcnpj');
-                    done();
-                });
-        });
-        it('it should not POST a user', (done) => {
-            let user = {
-                name: "Jefferson Bruchado",
-                cpfcnpj: "70131172000"
-            }
-            chai.request(server)
-                .post('/api/v1/users')
-                .send(user)
-                .end((err, res) => {
-                    res.should.have.status(200);
-                    res.body.should.be.a('object');
                     done();
                 });
         });

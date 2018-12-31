@@ -26,7 +26,8 @@ module.exports.new = function (req, res) {
         if (helper.validate_cpf_cnpj(req.body.cpfcnpj)) {
             user.cpfcnpj = req.body.cpfcnpj;
         } else {
-            res.json({
+            res.status(404).json({
+                status: "error",
                 message: 'CPF or CNPJ is invalid!',
                 data: user
             })
@@ -35,7 +36,7 @@ module.exports.new = function (req, res) {
 
     user.save(function (err) {
         if (err) {
-            res.json({
+            res.status(404).json({
                 status: "error",
                 message: 'User information already used or invalid.',
             });

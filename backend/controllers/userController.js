@@ -5,12 +5,12 @@ helper = require('../utils/helpers')
 module.exports.index = function(req, res) {
     User.get(function (err, users) {
         if (err) {
-            res.json({
+            return res.json({
                 status: "error",
                 message: err,
             });
         }
-        res.json({
+        return res.json({
             status: "success",
             message: "Users retrieved successfully",
             data: users
@@ -26,7 +26,7 @@ module.exports.new = function (req, res) {
         if (helper.validate_cpf_cnpj(req.body.cpfcnpj)) {
             user.cpfcnpj = req.body.cpfcnpj;
         } else {
-            res.status(404).json({
+            return res.status(404).json({
                 status: "error",
                 message: 'CPF or CNPJ is invalid!',
                 data: user
@@ -36,12 +36,12 @@ module.exports.new = function (req, res) {
 
     user.save(function (err) {
         if (err) {
-            res.status(404).json({
+            return res.status(404).json({
                 status: "error",
                 message: 'User information already used or invalid.',
             });
         }
-        res.json({
+        return res.json({
             message: 'New user created!',
             data: user
         })
@@ -52,8 +52,8 @@ module.exports.new = function (req, res) {
 module.exports.view = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)
-            res.send(err);
-        res.json({
+            return res.send(err);
+        return res.json({
             message: 'User details loading..',
             data: user
         });
@@ -65,7 +65,7 @@ module.exports.update = function (req, res) {
 
     User.findById(req.params.user_id, function (err, user) {
         if (err)
-            res.send(err);
+            return res.send(err);
 
         user.name = req.body.name ? req.body.name : user.name;
         user.cpfcnpj = req.body.cpfcnpj;
@@ -74,8 +74,8 @@ module.exports.update = function (req, res) {
         // save the user and check for errors
         user.save(function (err) {
             if (err)
-                res.json(err);
-            res.json({
+                return res.json(err);
+            return res.json({
                 message: 'User Info updated',
                 data: user
             });
@@ -89,7 +89,7 @@ module.exports.delete = function (req, res) {
         _id: req.params.user_id
     }, function (err, user) {
         if (err)
-            res.send(err);
+            return res.send(err);
 
         res.json({
             status: "success",

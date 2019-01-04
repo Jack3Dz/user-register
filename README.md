@@ -1,12 +1,12 @@
 ## User-Register CRUD application using NodeJS Express and React-Redux
 
-This project is a based in a user register;
+This project is based in a user register;
 
 Backend is build using NodeJS Express, and Frontend is build using React-Redux, the database used to perform data persistence is MongoDB.
 
 The application works as follows: 
-* Frontend performs a request for the backend >
-* Backend performs the request for the database > 
+* Frontend performs a request to the backend >
+* Backend performs a request to the database > 
 * The database returns the response > 
 * The backend processes the response > And returns the response to the frontend.
 

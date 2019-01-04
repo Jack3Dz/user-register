@@ -19,6 +19,8 @@ The `api` uri preceeds all API endpoints and the following endpoints are current
 * PATCH `/api/v1/users/:id` - Update Specific User.
 * DELETE `/api/v1/users/:id` - Delete Specific User.
 
+* GET `/api/v1/status` - Get uptime server.
+
 To configure this project, follow the steps below:
 
 ### Installation

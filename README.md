@@ -27,6 +27,7 @@ $ git clone https://github.com/Jack3Dz/user-register.git
 You will now need to have Docker and Compose installed on your machine, if you do not have it yet, you can download it at the following link:
 
 https://www.docker.com/products/docker-desktop - Docker
+
 https://docs.docker.com/compose/install/#install-compose - Compose
 
 Once you have Docker and Compose installed, you will need to have NodeJS installed, if you do not have it yet, you can download it at the following link:

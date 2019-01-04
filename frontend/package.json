@@ -15,10 +15,12 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "up": "docker-compose -f docker/docker-compose.develop.yml up",
+    "production": "docker-compose -f docker/docker-compose.production.yml up -d",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build": "docker-compose -f docker/docker-compose.develop.yml build",
+    "start": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

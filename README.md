@@ -2,8 +2,13 @@
 
 This project is a based in a user register;
 
-Backend is build using NodeJS Express and the way development has been done building a RESTFul API with user register endpoints.
-The database used to perform data persistence is MongoDB.
+Backend is build using NodeJS Express, and Frontend is build using React-Redux, the database used to perform data persistence is MongoDB.
+
+The application works as follows: 
+* Frontend performs a request for the backend >
+* Backend performs the request for the database > 
+* The database returns the response > 
+* The backend processes the response > And returns the response to the frontend.
 
 The `api` uri preceeds all API endpoints and the following endpoints are currently available
 * GET `/api/v1/users/` - Get All users.
@@ -41,7 +46,7 @@ Once you have Docker, Compose and NodeJS installed, you need to access the appli
 $ cd user-register
 ```
 
-After accessing the application directory, you will need to build docker containers, since we have two applications, we do this separately, starting with the backend, run the following command:
+After accessing the application directory and created .env file, you will need to build docker containers, since we have two applications, we do this separately, starting with the backend, run the following command:
 
 ```sh
 $ cd backend

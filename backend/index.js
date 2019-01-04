@@ -34,6 +34,11 @@ app.use(function (req, res, next) {
     next();
 });
 
+count = 0;
+app.use('*', (req, res, next) => {
+    count++; 
+    next(); 
+});
 
 // Send message for default URL
 app.get('/', (req, res) => res.send('User-Register is Working!!'));

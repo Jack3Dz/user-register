@@ -6,6 +6,7 @@ router.get('/status', function (req, res) {
     res.json({
         status: 'API Its Working',
         message: 'Welcome to User-Register crafted with love!',
+        requests: count
     });
 });
 

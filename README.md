@@ -1,4 +1,4 @@
-## user-register CRUD application
+## User-Register CRUD application using NodeJS Express and React-Redux
 
 This project is a based in a user register;
 

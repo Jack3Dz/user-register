@@ -154,7 +154,7 @@ export const fetchAllUsers = () => {
                 dispatch(fetchUsers(response.data.data))
             })
             .catch(error => {
-                dispatch(errorHandler(error.response.data));
+                throw(error)
             });
     };
 };
